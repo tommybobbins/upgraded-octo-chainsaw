@@ -4,6 +4,9 @@ Demonstration of using kubernetes external secrets with Google Secret Manager. B
 
 ## Not for production use.
 
+
+### Deployment
+
 Check that all the APIs are enabled
 ```
 $ gcloud services list --enabled
@@ -45,7 +48,16 @@ Create the service account keys which will be used for terraform wibbly-flibble-
     $ gcloud iam service-accounts keys create wibbly-flibble-stuff-morestuff.json \
     --iam-account=SA_NAME@PROJECT_ID.iam.gserviceaccount.com 
 
-This will create everything except the kubectl_manifests which must be created after getting the cluster credentials.
+
+Run the standard terraform deployment:
+   ```
+   $ terraform init
+   $ terraform plan
+   $ terraform apply
+   ```
+
+
+This will create everything except the kubectl_manifests which must be created after getting the cluster credentials These will be generated on a second terraform apply once the kubernetes cluster credentials have been found.
 Run the below command to populate the ~/.kube/config:
 
     $ gcloud container clusters get-credentials <project_name>-gke --region europe-west2
